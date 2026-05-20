@@ -1,0 +1,18 @@
+/* VIOLATION: Very light gray text on a white background. 
+   Fails the minimum contrast ratio of 4.5:1 for normal text (WCAG 1.4.3) */
+.disabled-notice {
+    background-color: #FFFFFF;
+    color: #D3D3D3; 
+}
+
+/* VIOLATION: Bright yellow text on a white background. Highly illegible. */
+.error-text {
+    background-color: #FFFFFF;
+    color: #FFFF00;
+}
+
+/* VIOLATION: Removing the focus outline without providing an accessible alternative.
+   Prevents keyboard-only users from navigating visually (WCAG 2.4.7) */
+a:focus, button:focus, input:focus {
+    outline: none;
+}
