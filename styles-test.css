@@ -9,6 +9,7 @@
 .error-text {
     background-color: #FFFFFF;
     color: #FFFF00;
+    background-color: #FFFF00;
 }
 
 /* VIOLATION: Removing the focus outline without providing an accessible alternative.

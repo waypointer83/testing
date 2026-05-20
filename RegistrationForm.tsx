@@ -29,6 +29,8 @@ export const RegistrationForm: React.FC = () => {
         {/* VIOLATION: Form control inside a label but completely lacking an explicit id/htmlFor connection or clean accessible name if nested poorly in some linters */}
         <input type="email" name="email" />
       </label>
+
+      <p></p>
     </div>
   );
-};
+};  
