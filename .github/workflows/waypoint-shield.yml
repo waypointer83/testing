@@ -1,13 +1,27 @@
 name: Waypoint Shield
 on: [pull_request]
-
 jobs:
- empathy-check:
-   runs-on: ubuntu-latest
-   steps:
-     - uses: actions/checkout@v4
-     - name: Run Waypoint Guard
-       run: |
-         npx waypoint-shield scan \
-           --uid ${{ secrets.WAYPOINT_UID }} \
-           --preview-url ${{ github.event.pull_request.head.ref }}.preview.io
+  empathy-check:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the code (fetch-depth: 0 is required to get history for git diff)
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # 2. Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # 3. Run the Empathy Guard on changed files in this Pull Request
+      - name: Run Waypoint Guard
+        run: |
+          # Get list of files changed in this PR compared to the base branch (e.g., main)
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | xargs)
+          
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "Scanning changed files: $CHANGED_FILES"
+            node scripts/empathy-guard.mjs $CHANGED_FILES
+          else
+            echo "No files changed in this PR."
+          fi
