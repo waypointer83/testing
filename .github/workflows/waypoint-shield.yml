@@ -1,0 +1,13 @@
+name: Waypoint Shield
+on: [pull_request]
+
+jobs:
+ empathy-check:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v4
+     - name: Run Waypoint Guard
+       run: |
+         npx waypoint-shield scan \
+           --uid ${{ secrets.WAYPOINT_UID }} \
+           --preview-url ${{ github.event.pull_request.head.ref }}.preview.io
